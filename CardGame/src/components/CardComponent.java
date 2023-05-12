@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * 
+ * 카드를 생성해주는 컴포넌트입니다. 
 */
 
 public class CardComponent extends JPanel {
