@@ -1,6 +1,7 @@
 package components;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
@@ -12,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import main.ImageController;
 
@@ -22,7 +22,8 @@ public class MyFrame extends JFrame{
 	
 	static final String BACK_IMAGE = "resources\\img\\card_backImage.png";
 	static final int width = 60;
-	static final int height = 100;
+	static final int height = 90;
+	static final Color c = new Color(0x80CBC4);
 	
 	public MyFrame() throws IOException {
 		setTitle("Card Game");
@@ -32,6 +33,7 @@ public class MyFrame extends JFrame{
 		// 카드들을 5x4 의 레이아웃을 보여주기 위한 cardPanel 생성
 		JPanel cardPanel = new JPanel();
 		cardPanel.setLayout(new GridLayout(5,4));
+		cardPanel.setOpaque(false);
 		
 		// cardComponent 를 활용하여 카드들 생성
 		for (int j=0; j<i.filePaths.size(); j++) {
@@ -47,8 +49,8 @@ public class MyFrame extends JFrame{
 				back = back.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 				ImageIcon backImage = new ImageIcon(back);
 				
-				CardComponent c1 = new CardComponent(frontImage, backImage);
-				CardComponent c2 = new CardComponent(frontImage, backImage);
+				CardComponent c1 = new CardComponent(frontImage, backImage, c);
+				CardComponent c2 = new CardComponent(frontImage, backImage, c);
 				cards.add(c1);
 				cards.add(c2);
 			}
@@ -64,6 +66,7 @@ public class MyFrame extends JFrame{
 		
 		// Timer 를 생성
 		JPanel timerPanel = new JPanel();
+		timerPanel.setOpaque(false);
 		TimerComponent timer = new TimerComponent();
 		timerPanel.add(timer);
 		
@@ -74,8 +77,15 @@ public class MyFrame extends JFrame{
 		// 프레임에 컴포넌트들 추가.
 		// timer 가 프레임의 상단에 가운데 정렬하여 보여지고
 		// 20장의 카드들이 프레임의 아래에 보여짐.
+		
+		JPanel emptyPanel = new JPanel();
+		emptyPanel.setOpaque(false);
 		add(timerPanel, BorderLayout.NORTH);
-		add(cardPanel, BorderLayout.SOUTH);
+		add(emptyPanel, BorderLayout.SOUTH);
+		add(cardPanel, BorderLayout.CENTER);
+		
+		// 배경색 변경
+		this.getContentPane().setBackground(c);
 		
 		pack();
 		setSize(550, 700);
