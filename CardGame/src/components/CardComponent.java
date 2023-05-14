@@ -1,9 +1,11 @@
 package components;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,7 +21,7 @@ public class CardComponent extends JPanel {
 	private ImageIcon backImage;
 	private JLabel cardLabel;
 	
-	public CardComponent(ImageIcon frontImage, ImageIcon backImage) {
+	public CardComponent(ImageIcon frontImage, ImageIcon backImage, Color c) {
 		this.frontImage = frontImage;
 		this.backImage = backImage;
 		isFaceUp = false;
@@ -28,7 +30,7 @@ public class CardComponent extends JPanel {
 		// 카드 이미지를 표시할 레이블 생성
 		cardLabel = new JLabel(backImage);
 		setPreferredSize(new Dimension(backImage.getIconWidth(), backImage.getIconHeight()));
-		
+		cardLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		
 		// 카드를 클릭할 때 이벤트 처리
 		addMouseListener(new MouseAdapter() {
@@ -41,6 +43,7 @@ public class CardComponent extends JPanel {
 		});
 		
 		add(cardLabel);
+		this.setBackground(c);
 	}
 	
 	// 카드 뒤집기 동작
