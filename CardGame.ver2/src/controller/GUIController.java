@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -18,10 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import components.CardComponent;
+import components.TimerComponent;
 
 public class GUIController {
 	private JFrame frame = new JFrame();
 	private JPanel cardPanel = new JPanel();
+	private JPanel timerPanel = new JPanel();
 	private ImageController imageController = new ImageController();
 	private ArrayList<CardComponent> cards = new ArrayList<>();
 	private static final String BACK_IMAGE = "resources\\img\\card_backImage.png";
@@ -42,6 +45,7 @@ public class GUIController {
 		
 		// 카드들을 세로 5칸, 가로 4칸이 되도록 설정
 		cardPanel.setLayout(new GridLayout(5, 4));
+		cardPanel.setOpaque(false);
 		
         timer = new Timer(400, e -> checkPair()); // Timer 생성 및 ActionListener 설정
         timer.setRepeats(false); // 한 번만 실행되도록 설정
@@ -74,11 +78,20 @@ public class GUIController {
 			card.addMouseListener(new CardClickListener());
 			cardPanel.add(card);
 		}
-		cardPanel.setOpaque(false);
+		
+		
+		// TimerComponent 더해주기
+		timerPanel.setOpaque(false);
+//		timerPanel.setLayout(new BorderLayout());
+		TimerComponent timerComponent = new TimerComponent();
+		timerPanel.add(timerComponent);		
+		
+		frame.add(timerPanel, BorderLayout.NORTH);
 		frame.add(cardPanel, BorderLayout.CENTER);
+		timerComponent.startTimer();
 		
 		frame.pack();
-		frame.setSize(1000, 500);
+		frame.setSize(600, 800);
 		frame.setVisible(true);
 	}
 	
