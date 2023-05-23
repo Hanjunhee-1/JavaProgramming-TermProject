@@ -6,5 +6,19 @@ package components;
  *
  */
 public class PlayerComponent {
-
+	private int score;
+	
+	public PlayerComponent() {
+		score = 0;
+		
+		
+	}
+	
+	public int score() {
+		return this.score();
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
 }
