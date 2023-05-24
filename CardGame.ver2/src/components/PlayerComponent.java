@@ -13,20 +13,32 @@ import javax.swing.JLabel;
  */
 public class PlayerComponent extends JLabel {
 	private String playerName;
+	private String currentStatus;
 	private int score;
 	private Color color;
 	
-	public PlayerComponent(Color color) {
+	public PlayerComponent(Color color, String playerName) {
 		score = 0;
 		
 		this.setPreferredSize(new Dimension(200, 800));
 		setColor(color);
+		setPlayerName(playerName);
+		setCurrentStatus();
 		this.setBackground(color);
+		this.setText(currentStatus);
 		this.setFont(new Font("Ink Free", Font.BOLD, 20));
+	}
+	
+	public String playerName() {
+		return this.playerName;
 	}
 	
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
+	}
+	
+	public void setCurrentStatus() {
+		this.currentStatus = new String(playerName() + " 님의 현재 점수: " + Integer.toString(score()));
 	}
 	
 	public int score() {
