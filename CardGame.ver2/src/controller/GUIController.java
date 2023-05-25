@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -19,12 +20,15 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import components.CardComponent;
+import components.PlayerComponent;
 import components.TimerComponent;
 
 public class GUIController {
 	private JFrame frame = new JFrame();
 	private JPanel cardPanel = new JPanel();
 	private JPanel timerPanel = new JPanel();
+	private JPanel p1Panel = new JPanel();
+	private JPanel p2Panel = new JPanel();
 	private ImageController imageController = new ImageController();
 	private ArrayList<CardComponent> cards = new ArrayList<>();
 	private static final String BACK_IMAGE = "resources\\img\\card_backImage.png";
@@ -84,9 +88,18 @@ public class GUIController {
 		timerPanel.setOpaque(false);
 //		timerPanel.setLayout(new BorderLayout());
 		TimerComponent timerComponent = new TimerComponent();
-		timerPanel.add(timerComponent);		
+		timerPanel.add(timerComponent);
+		
+		PlayerComponent p1 = new PlayerComponent(new Color(0xef5350), "P1");
+		p1Panel.setOpaque(false);
+		p1Panel.add(p1);
+		PlayerComponent p2 = new PlayerComponent(new Color(0x1565c0), "P2");
+		p2Panel.setOpaque(false);
+		p2Panel.add(p2);
 		
 		frame.add(timerPanel, BorderLayout.NORTH);
+		frame.add(p1Panel, BorderLayout.WEST);
+		frame.add(p2Panel, BorderLayout.EAST);
 		frame.add(cardPanel, BorderLayout.CENTER);
 		timerComponent.startTimer();
 		
