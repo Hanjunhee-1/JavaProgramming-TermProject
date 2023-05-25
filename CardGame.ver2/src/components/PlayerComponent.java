@@ -20,8 +20,7 @@ public class PlayerComponent extends JLabel {
 	public PlayerComponent(Color color, String playerName) {
 		score = 0;
 		
-		this.setPreferredSize(new Dimension(200, 800));
-		setColor(color);
+		this.setOpaque(true);
 		setPlayerName(playerName);
 		setCurrentStatus();
 		this.setBackground(color);
@@ -38,11 +37,11 @@ public class PlayerComponent extends JLabel {
 	}
 	
 	public void setCurrentStatus() {
-		this.currentStatus = new String(playerName() + " 님의 현재 점수: " + Integer.toString(score()));
+		this.currentStatus = new String(playerName() + "\'s score is " + Integer.toString(score()));
 	}
 	
 	public int score() {
-		return this.score();
+		return this.score;
 	}
 	
 	public void setScore(int score) {
