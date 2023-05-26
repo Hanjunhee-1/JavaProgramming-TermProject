@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import components.CardComponent;
+import components.NoticeComponent;
 import components.PlayerComponent;
 import components.TimerComponent;
 
@@ -27,6 +28,8 @@ public class GUIController {
 	private JFrame frame = new JFrame();
 	private JPanel cardPanel = new JPanel();
 	private JPanel timerPanel = new JPanel();
+	private JPanel noticePanel = new JPanel();
+	private JPanel timerAndNoticePanel = new JPanel();
 	private JPanel p1Panel = new JPanel();
 	private JPanel p2Panel = new JPanel();
 	private ImageController imageController = new ImageController();
@@ -90,6 +93,11 @@ public class GUIController {
 		TimerComponent timerComponent = new TimerComponent();
 		timerPanel.add(timerComponent);
 		
+		noticePanel.setOpaque(false);
+		NoticeComponent noticeComponent = new NoticeComponent(new Color(0xc0ca33));
+		noticeComponent.setNotice("Who\'s turn?");
+		noticePanel.add(noticeComponent);
+		
 		PlayerComponent p1 = new PlayerComponent(new Color(0xef5350), "P1");
 		p1Panel.setOpaque(false);
 		p1Panel.add(p1);
@@ -97,14 +105,20 @@ public class GUIController {
 		p2Panel.setOpaque(false);
 		p2Panel.add(p2);
 		
-		frame.add(timerPanel, BorderLayout.NORTH);
+		timerAndNoticePanel.setOpaque(false);
+		timerAndNoticePanel.setLayout(new BorderLayout());
+		timerAndNoticePanel.add(timerPanel, BorderLayout.NORTH);
+		timerAndNoticePanel.add(noticePanel, BorderLayout.CENTER);
+//		frame.add(timerPanel, BorderLayout.NORTH);
+//		frame.add(noticePanel, BorderLayout.NORTH);
+		frame.add(timerAndNoticePanel, BorderLayout.NORTH);
 		frame.add(p1Panel, BorderLayout.WEST);
 		frame.add(p2Panel, BorderLayout.EAST);
 		frame.add(cardPanel, BorderLayout.CENTER);
 		timerComponent.startTimer();
 		
 		frame.pack();
-		frame.setSize(600, 800);
+		frame.setSize(600, 700);
 		frame.setVisible(true);
 	}
 	
