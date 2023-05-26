@@ -37,7 +37,7 @@ public class PlayerComponent extends JLabel {
 	}
 	
 	public void setCurrentStatus() {
-		this.currentStatus = new String(playerName() + "\'s score is " + Integer.toString(score()));
+		this.currentStatus = new String(playerName() + "\'s score: " + Integer.toString(score()));
 	}
 	
 	public int score() {
