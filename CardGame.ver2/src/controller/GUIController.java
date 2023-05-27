@@ -33,13 +33,17 @@ public class GUIController {
 	private JPanel p1Panel = new JPanel();
 	private JPanel p2Panel = new JPanel();
 	private ImageController imageController = new ImageController();
+	private GameController gameController = new GameController();
 	private ArrayList<CardComponent> cards = new ArrayList<>();
 	private static final String BACK_IMAGE = "resources\\img\\card_backImage.png";
 	private static final int width = 60;
 	private static final int height = 90;
 	
+	private boolean p1Turn = true;
+	private PlayerComponent p1, p2;
 	private CardComponent clickedCard1 = null;
 	private CardComponent clickedCard2 = null;
+	private NoticeComponent noticeComponent;
 	private Timer timer;
 	static final Color c = new Color(0x80CBC4);
 	
@@ -94,16 +98,20 @@ public class GUIController {
 		timerPanel.add(timerComponent);
 		
 		noticePanel.setOpaque(false);
-		NoticeComponent noticeComponent = new NoticeComponent(new Color(0xc0ca33));
+		noticeComponent = new NoticeComponent(new Color(0xc0ca33));
 		noticeComponent.setNotice("Who\'s turn?");
 		noticePanel.add(noticeComponent);
 		
-		PlayerComponent p1 = new PlayerComponent(new Color(0xef5350), "P1");
+		p1 = new PlayerComponent(new Color(0xef5350), "P1");
 		p1Panel.setOpaque(false);
 		p1Panel.add(p1);
-		PlayerComponent p2 = new PlayerComponent(new Color(0x1565c0), "P2");
+		p2 = new PlayerComponent(new Color(0x1565c0), "P2");
 		p2Panel.setOpaque(false);
 		p2Panel.add(p2);
+		
+		if (p1Turn) {
+			noticeComponent.setNotice(p1.playerName() + "\'s turn!");
+		}
 		
 		timerAndNoticePanel.setOpaque(false);
 		timerAndNoticePanel.setLayout(new BorderLayout());
@@ -126,15 +134,38 @@ public class GUIController {
 		if (clickedCard1.getCardName().equals(clickedCard2.getCardName())) {
 			clickedCard1.setMatched(true);
 			clickedCard2.setMatched(true);
+			
+			if (p1Turn) {
+				gameController.calculateScore(true, p1);
+				p1.setCurrentStatus();
+				p1.changeText();
+			} else {
+				gameController.calculateScore(true, p2);
+				p2.setCurrentStatus();
+				p2.changeText();
+			}
 		} else {
 			clickedCard1.setFaceUp(false);
 			clickedCard1.setBackImage();
 			clickedCard2.setFaceUp(false);
 			clickedCard2.setBackImage();
+			
+			if (p1Turn) {
+				gameController.calculateScore(false, p1);
+				p1.setCurrentStatus();
+				p1.changeText();
+			} else {
+				gameController.calculateScore(false, p2);
+				p2.setCurrentStatus();
+				p2.changeText();
+			}
 		}
 		
 		clickedCard1 = null;
 		clickedCard2 = null;
+		
+		p1Turn = p1Turn ? false : true;
+		noticeComponent.setNotice(p1Turn ? p1.playerName() + "\'s turn!" : p2.playerName() + "\'s turn!");
 	}
 	
 	class CardClickListener implements MouseListener {
