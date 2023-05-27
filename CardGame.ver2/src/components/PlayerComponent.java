@@ -40,6 +40,10 @@ public class PlayerComponent extends JLabel {
 		this.currentStatus = new String(playerName() + "\'s score: " + Integer.toString(score()));
 	}
 	
+	public void changeText() {
+		this.setText(currentStatus);
+	}
+	
 	public int score() {
 		return this.score;
 	}
