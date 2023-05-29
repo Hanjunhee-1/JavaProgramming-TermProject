@@ -43,6 +43,7 @@ public class GUIController {
 	private PlayerComponent p1, p2;
 	private CardComponent clickedCard1 = null;
 	private CardComponent clickedCard2 = null;
+	private TimerComponent timerComponent;
 	private NoticeComponent noticeComponent;
 	private Timer timer;
 	static final Color c = new Color(0x80CBC4);
@@ -94,7 +95,7 @@ public class GUIController {
 		// TimerComponent 더해주기
 		timerPanel.setOpaque(false);
 //		timerPanel.setLayout(new BorderLayout());
-		TimerComponent timerComponent = new TimerComponent();
+		timerComponent = new TimerComponent();
 		timerPanel.add(timerComponent);
 		
 		noticePanel.setOpaque(false);
