@@ -130,36 +130,8 @@ public class GUIController {
 		frame.setVisible(true);
 	}
 	
-	public void checkPair() {
-		if (clickedCard1.getCardName().equals(clickedCard2.getCardName())) {
-			clickedCard1.setMatched(true);
-			clickedCard2.setMatched(true);
-			
-			if (p1Turn) {
-				gameController.calculateScore(true, p1);
-				p1.setCurrentStatus();
-				p1.changeText();
-			} else {
-				gameController.calculateScore(true, p2);
-				p2.setCurrentStatus();
-				p2.changeText();
-			}
-		} else {
-			clickedCard1.setFaceUp(false);
-			clickedCard1.setBackImage();
-			clickedCard2.setFaceUp(false);
-			clickedCard2.setBackImage();
-			
-			if (p1Turn) {
-				gameController.calculateScore(false, p1);
-				p1.setCurrentStatus();
-				p1.changeText();
-			} else {
-				gameController.calculateScore(false, p2);
-				p2.setCurrentStatus();
-				p2.changeText();
-			}
-		}
+	public void checkPair() {		
+		gameController.checkPair(clickedCard1, clickedCard2, p1Turn, p1, p2);
 		
 		clickedCard1 = null;
 		clickedCard2 = null;
@@ -185,6 +157,7 @@ public class GUIController {
             		clickedCard2.setFrontImage();
             		
             		timer.restart();
+            		
             	}
         	}
         	
