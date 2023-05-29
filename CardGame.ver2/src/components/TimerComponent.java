@@ -51,4 +51,8 @@ public class TimerComponent extends JLabel {
 		stopTimer();
 		startTimer();
 	}
+	
+	public boolean isTimerRunning() {
+		return timer.isRunning();
+	}
 }
