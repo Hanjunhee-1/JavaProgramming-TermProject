@@ -94,8 +94,23 @@ public class GUIController {
 		
 		// TimerComponent 더해주기
 		timerPanel.setOpaque(false);
-//		timerPanel.setLayout(new BorderLayout());
 		timerComponent = new TimerComponent();
+		timerComponent.setTimeExpiredCallback(() -> {
+		    if (clickedCard1 != null || clickedCard2 != null) {
+		        // 클릭해서 뒤집은 카드를 다시 뒷면으로 돌리기
+		        if (clickedCard1 != null) {
+		            clickedCard1.setFaceUp(false);
+		            clickedCard1.setBackImage();
+		        }
+		        if (clickedCard2 != null) {
+		            clickedCard2.setFaceUp(false);
+		            clickedCard2.setBackImage();
+		        }
+
+		        // 턴을 상대에게 넘기기
+		        nextTurn();
+		    }
+		});
 		timerPanel.add(timerComponent);
 		
 		noticePanel.setOpaque(false);
@@ -118,8 +133,6 @@ public class GUIController {
 		timerAndNoticePanel.setLayout(new BorderLayout());
 		timerAndNoticePanel.add(timerPanel, BorderLayout.NORTH);
 		timerAndNoticePanel.add(noticePanel, BorderLayout.CENTER);
-//		frame.add(timerPanel, BorderLayout.NORTH);
-//		frame.add(noticePanel, BorderLayout.NORTH);
 		frame.add(timerAndNoticePanel, BorderLayout.NORTH);
 		frame.add(p1Panel, BorderLayout.WEST);
 		frame.add(p2Panel, BorderLayout.EAST);
@@ -134,7 +147,36 @@ public class GUIController {
 	public void checkPair() {		
 		gameController.checkPair(clickedCard1, clickedCard2, p1Turn, p1, p2);
 		
-		nextTurn();
+		if (!checkAllFaceUp()) {
+			nextTurn();
+		} else {
+			timerComponent.stopTimer();
+			
+			PlayerComponent winner = gameController.calculateWinner(p1, p2);
+			
+			checkWinner(winner);
+		}
+	}
+	
+	public void checkWinner(PlayerComponent winner) {
+		if (winner == null) {
+			noticeComponent.setNotice("DRAW");
+		}
+		
+		if (winner.playerName().equals(p1.playerName())) {
+			noticeComponent.setNotice(p1.playerName() + " is Winner!");
+		} else {
+			noticeComponent.setNotice(p2.playerName() + " is Winner!");
+		}
+	}
+	
+	public boolean checkAllFaceUp() {
+		for (int i=0; i<cards.size(); i++) {
+			if (!cards.get(i).isFaceUp()) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public void nextTurn() {
