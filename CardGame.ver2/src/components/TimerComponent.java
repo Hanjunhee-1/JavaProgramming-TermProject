@@ -23,6 +23,7 @@ public class TimerComponent extends JLabel {
 			}
 			if (seconds % 10 == 0) {
 				stopTimer();
+				timeExpired();
 			}
 			
 			this.setText(Integer.toString(seconds));
