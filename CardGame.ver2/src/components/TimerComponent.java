@@ -9,6 +9,7 @@ import javax.swing.Timer;
 public class TimerComponent extends JLabel {
 	private Timer timer;
 	private int seconds = 0;
+	private Runnable timeExpiredCallback;
 
 	public TimerComponent() {
 		this.setFont(new Font("Ink Free", Font.BOLD, 40));
@@ -34,6 +35,16 @@ public class TimerComponent extends JLabel {
 
 	public void setSeconds(int seconds) {
 		this.seconds = seconds;
+	}
+	
+	public void setTimeExpiredCallback(Runnable callback) {
+		this.timeExpiredCallback = callback;
+	}
+	
+	public void timeExpired() {
+		if (timeExpiredCallback != null) {
+			timeExpiredCallback.run();
+		}
 	}
 	
 	public void startTimer() {
