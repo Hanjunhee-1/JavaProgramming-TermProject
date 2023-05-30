@@ -59,7 +59,7 @@ public class GUIController {
 		cardPanel.setLayout(new GridLayout(5, 4));
 		cardPanel.setOpaque(false);
 		
-        timer = new Timer(400, e -> checkPair()); // Timer 생성 및 ActionListener 설정
+        timer = new Timer(200, e -> checkPair()); // Timer 생성 및 ActionListener 설정
         timer.setRepeats(false); // 한 번만 실행되도록 설정
 		
 		// 카드 뒷면 이미지 생성 및 크기 조정
@@ -134,6 +134,13 @@ public class GUIController {
 	public void checkPair() {		
 		gameController.checkPair(clickedCard1, clickedCard2, p1Turn, p1, p2);
 		
+		nextTurn();
+	}
+	
+	public void nextTurn() {
+		timerComponent.stopTimer();
+		timerComponent.startTimer();
+		
 		clickedCard1 = null;
 		clickedCard2 = null;
 		
@@ -158,7 +165,6 @@ public class GUIController {
             		clickedCard2.setFrontImage();
             		
             		timer.restart();
-            		
             	}
         	}
         	
