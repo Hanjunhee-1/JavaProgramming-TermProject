@@ -15,6 +15,16 @@ public class GameController {
 		}
 	}
 	
+	public PlayerComponent calculateWinner(PlayerComponent p1, PlayerComponent p2) {
+		if (p1.score() > p2.score()) {
+			return p1;
+		} else if (p1.score() < p2.score()) {
+			return p2;
+		} else {
+			return null;
+		}
+	}
+	
 	public void checkPair(CardComponent clickedCard1, CardComponent clickedCard2, boolean p1Turn, PlayerComponent p1, PlayerComponent p2) {
 		if (clickedCard1.getCardName().equals(clickedCard2.getCardName())) {
 			clickedCard1.setMatched(true);
