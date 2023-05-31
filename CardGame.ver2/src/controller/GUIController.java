@@ -67,6 +67,9 @@ public class GUIController {
 		back = back.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		ImageIcon backImage = new ImageIcon(back);
 		
+		// frame 의 아이콘 설정
+		frame.setIconImage(backImage.getImage());
+		
 		for (int j=0; j<imageController.filePaths.size(); j++) {
 			if (imageController.filePaths.get(j).equals(BACK_IMAGE)) {
 				continue;
@@ -106,10 +109,9 @@ public class GUIController {
 		            clickedCard2.setFaceUp(false);
 		            clickedCard2.setBackImage();
 		        }
-
-		        // 턴을 상대에게 넘기기
-		        nextTurn();
 		    }
+	        // 턴을 상대에게 넘기기
+	        nextTurn();
 		});
 		timerPanel.add(timerComponent);
 		
