@@ -60,7 +60,8 @@ public class GUIController {
 		
 		// 카드들을 세로 5칸, 가로 4칸이 되도록 설정
 		cardPanel.setLayout(new GridLayout(5, 4));
-		cardPanel.setOpaque(false);
+		cardPanel.setBackground(new Color(0xa5d6a7));
+		cardPanel.setBorder(new LineBorder(new Color(0x1b5e20), 2));
 		
         timer = new Timer(200, e -> checkPair()); // Timer 생성 및 ActionListener 설정
         timer.setRepeats(false); // 한 번만 실행되도록 설정
