@@ -2,10 +2,10 @@ package controller;
 
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 import components.CardComponent;
 import components.PlayerComponent;
-
-// GUIController 의 checkPair() 함수 GameController 로 가져오기
 
 public class GameController {
 	
@@ -40,7 +40,7 @@ public class GameController {
 				this.calculateScore(true, p2);
 				p2.setCurrentStatus();
 				p2.changeText();
-			} 
+			}
 		} else {
 			clickedCard1.setFaceUp(false);
 			clickedCard1.setBackImage();

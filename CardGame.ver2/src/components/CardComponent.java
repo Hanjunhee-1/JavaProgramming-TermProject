@@ -63,11 +63,18 @@ public class CardComponent extends JPanel{
 	// 카드의 이미지를 앞면으로 설정
 	public void setFrontImage() {
 		cardLabel.setIcon(this.frontImage);
-		
+	}
+	
+	public ImageIcon getFrontImage() {
+		return this.frontImage;
 	}
 	
 	// 카드의 이미지를 뒷면으로 설정
 	public void setBackImage() {
 		cardLabel.setIcon(this.backImage);
+	}
+	
+	public ImageIcon getBackImage() {
+		return this.backImage;
 	}
 }

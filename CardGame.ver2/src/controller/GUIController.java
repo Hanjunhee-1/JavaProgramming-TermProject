@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.LineBorder;
 
 import components.CardComponent;
 import components.NoticeComponent;
@@ -31,7 +32,9 @@ public class GUIController {
 	private JPanel noticePanel = new JPanel();
 	private JPanel timerAndNoticePanel = new JPanel();
 	private JPanel p1Panel = new JPanel();
+	private JPanel p1MatchedCards = new JPanel();
 	private JPanel p2Panel = new JPanel();
+	private JPanel p2MatchedCards = new JPanel();
 	private ImageController imageController = new ImageController();
 	private GameController gameController = new GameController();
 	private ArrayList<CardComponent> cards = new ArrayList<>();
@@ -121,11 +124,22 @@ public class GUIController {
 		noticePanel.add(noticeComponent);
 		
 		p1 = new PlayerComponent(new Color(0xef5350), "P1");
+		p1MatchedCards.setBackground(new Color(0xffb74d));
+		p1MatchedCards.setBorder(new LineBorder(new Color(0xe65100), 2));
+		p1MatchedCards.setLayout(new GridLayout(0, 2));
 		p1Panel.setOpaque(false);
-		p1Panel.add(p1);
+		p1Panel.setLayout(new BorderLayout());
+		p1Panel.add(p1, BorderLayout.NORTH);
+		p1Panel.add(p1MatchedCards, BorderLayout.CENTER);
+		
 		p2 = new PlayerComponent(new Color(0x1565c0), "P2");
+		p2MatchedCards.setBackground(new Color(0x2196f3));
+		p2MatchedCards.setBorder(new LineBorder(new Color(0x4a148c), 2));
+		p2MatchedCards.setLayout(new GridLayout(0, 2));
 		p2Panel.setOpaque(false);
-		p2Panel.add(p2);
+		p2Panel.setLayout(new BorderLayout());
+		p2Panel.add(p2, BorderLayout.NORTH);
+		p2Panel.add(p2MatchedCards, BorderLayout.CENTER);
 		
 		if (p1Turn) {
 			noticeComponent.setNotice(p1.playerName() + "\'s turn!");
@@ -142,12 +156,20 @@ public class GUIController {
 		timerComponent.startTimer();
 		
 		frame.pack();
-		frame.setSize(600, 700);
+		frame.setSize(900, 700);
 		frame.setVisible(true);
 	}
 	
 	public void checkPair() {		
 		gameController.checkPair(clickedCard1, clickedCard2, p1Turn, p1, p2);
+		
+		if (clickedCard1.getCardName().equals(clickedCard2.getCardName())) {
+			if (p1Turn) {
+				setMatchedCards(p1, clickedCard1);
+			} else {
+				setMatchedCards(p2, clickedCard1);
+			}
+		}
 		
 		if (!checkAllFaceUp()) {
 			nextTurn();
@@ -185,6 +207,17 @@ public class GUIController {
 		
 		p1Turn = p1Turn ? false : true;
 		noticeComponent.setNotice(p1Turn ? p1.playerName() + "\'s turn!" : p2.playerName() + "\'s turn!");
+	}
+	
+	public void setMatchedCards(PlayerComponent player, CardComponent matchedCard) {
+		CardComponent card = new CardComponent(matchedCard.getFrontImage(), matchedCard.getBackImage(), matchedCard.getCardName());
+		card.setFrontImage();
+		
+		if (player.playerName().equals("P1")) {
+			p1MatchedCards.add(card);
+		} else {
+			p2MatchedCards.add(card);
+		}
 	}
 	
 	class CardClickListener implements MouseListener {
