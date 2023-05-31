@@ -1,14 +1,10 @@
 package components;
 
-import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 public class CardComponent extends JPanel{
 	private ImageIcon frontImage;
