@@ -171,12 +171,7 @@ public class GUIController {
 	}
 	
 	public boolean checkAllFaceUp() {
-		for (int i=0; i<cards.size(); i++) {
-			if (!cards.get(i).isFaceUp()) {
-				return false;
-			}
-		}
-		return true;
+		return gameController.checkAllFaceUp(cards);
 	}
 	
 	public void nextTurn() {

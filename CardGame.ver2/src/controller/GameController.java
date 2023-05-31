@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import components.CardComponent;
 import components.PlayerComponent;
 
@@ -55,5 +57,14 @@ public class GameController {
 				p2.changeText();
 			} 
 		}
+	}
+	
+	public boolean checkAllFaceUp(ArrayList<CardComponent> cards) {
+		for (int i=0; i<cards.size(); i++) {
+			if (!cards.get(i).isFaceUp()) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
